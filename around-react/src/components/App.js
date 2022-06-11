@@ -11,6 +11,11 @@ function App() {
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 	const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
 		React.useState(false);
+	const [selectedCard, setSelectedCard] = React.useState(null);
+
+	function handleCardClick(card) {
+		setSelectedCard(card);
+	}
 
 	function handleEditAvatarClick() {
 		setIsAvatarPopupOpen(true);
@@ -22,6 +27,7 @@ function App() {
 		setIsAddPlacePopupOpen(true);
 	}
 	function handleClosePopup() {
+		setSelectedCard(false);
 		setIsAvatarPopupOpen(false);
 		setEditProfilePopupOpen(false);
 		setIsAddPlacePopupOpen(false);
@@ -34,6 +40,7 @@ function App() {
 				onEditAvatarClick={handleEditAvatarClick}
 				onEditProfileClick={handleEditProfileClick}
 				onAddPlaceClick={handleAddPlaceClick}
+				onCardClick={handleCardClick}
 			/>
 			<Footer />
 
@@ -114,7 +121,7 @@ function App() {
 				/>
 				<span className="popup__error" id="avatar-error"></span>
 			</PopupWithForm>
-			<ImagePopup />
+			<ImagePopup card={selectedCard} onClose={handleClosePopup} />
 
 			<div className="popup" id="delete-popup">
 				<div className="popup__content popup__content_type_delete">
@@ -128,31 +135,6 @@ function App() {
 					</button>
 				</div>
 			</div>
-			{/* <div className="popup" id="edit-popupPicture">
-				<div className="popup__content popup__content_type_edit">
-					<button className="popup__close" type="button"></button>
-					<h3 className="popup__title">Change profile picture</h3>
-					<form
-						id="add-profile"
-						className="popup__form"
-						name="add avatar"
-						noValidate>
-						<input
-							name="avatar"
-							id="avatar"
-							type="url"bv 
-							placeholder="Link"
-							className="popup__input"
-							required
-							minLength="6"
-						/>
-						<span className="popup__error" id="avatar-error"></span>
-						<button type="submit" className="popup__submit" disabled>
-							Save
-						</button>
-					</form>
-				</div>
-			</div> */}
 		</div>
 	);
 }
