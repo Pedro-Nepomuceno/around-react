@@ -8,7 +8,7 @@ function PopupWithForm({
 }) {
 	return (
 		<div
-			className={`popup popup_type_${name} ${isOpen ? "popup_open" : ""} `}
+			className={`popup popup_type_${name} ${isOpen && "popup_open"} `}
 			id="edit-popup">
 			<div className="popup__content">
 				<button

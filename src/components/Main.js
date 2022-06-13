@@ -14,12 +14,17 @@ function Main({
 	const [cards, setCards] = React.useState([]);
 
 	React.useEffect(() => {
-		api.getAppInfo().then(([cardData, userData]) => {
-			setCards(cardData);
-			setUserName(userData.name);
-			setUserDescription(userData.about);
-			setUserAvatar(userData.avatar);
-		});
+		api
+			.getAppInfo()
+			.then(([cardData, userData]) => {
+				setCards(cardData);
+				setUserName(userData.name);
+				setUserDescription(userData.about);
+				setUserAvatar(userData.avatar);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}, []);
 	return (
 		<main>
@@ -31,11 +36,13 @@ function Main({
 							onClick={onEditAvatarClick}
 							className="profile__change-photo"></button>
 					</div>
-					<img
-						className="profile__avatar-pic"
-						src={userAvatar}
-						alt="profile picture"
-					/>
+					{userAvatar && (
+						<img
+							className="profile__avatar-pic"
+							src={userAvatar}
+							alt="profile picture"
+						/>
+					)}
 				</div>
 				<div className="profile__info">
 					<h1 className="profile__name">{userName}</h1>
