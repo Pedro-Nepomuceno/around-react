@@ -5,6 +5,8 @@ import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
 import React from "react";
+import api from "../utils/api";
+import { currentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
 	const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = React.useState(false);
@@ -12,6 +14,18 @@ function App() {
 	const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
 		React.useState(false);
 	const [selectedCard, setSelectedCard] = React.useState(null);
+	const [currentUser, setCurrentUser] = React.useState([]);
+
+	React.useEffect(() => {
+		api
+			.getUserInfo()
+			.then((data) => {
+				setCurrentUser(data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
 	function handleCardClick(card) {
 		setSelectedCard(card);
@@ -35,94 +49,95 @@ function App() {
 
 	return (
 		<div className="page">
-			<Header />
-			<Main
-				onEditAvatarClick={handleEditAvatarClick}
-				onEditProfileClick={handleEditProfileClick}
-				onAddPlaceClick={handleAddPlaceClick}
-				onCardClick={handleCardClick}
-			/>
-			<Footer />
+			<currentUserContext.Provider value={currentUser}>
+				<Header />
+				<Main
+					onEditAvatarClick={handleEditAvatarClick}
+					onEditProfileClick={handleEditProfileClick}
+					onAddPlaceClick={handleAddPlaceClick}
+					onCardClick={handleCardClick}
+				/>
+				<Footer />
 
-			<PopupWithForm
-				name="edit-popup"
-				title="Edit Profile"
-				inputName="Name"
-				inputDescription="About me"
-				onClose={handleClosePopup}
-				isOpen={isEditProfilePopupOpen}>
-				<input
-					name="name"
-					type="text"
-					placeholder="name"
-					className="popup__input popup__input_type_name"
-					id="name"
-					required
-					minLength="2"
-					maxLength="40"
-				/>
-				<span className="popup__error" id="name-error"></span>
-				<input
-					name="about"
-					type="text"
-					placeholder="Description"
-					className="popup__input popup__input_type_description"
-					id="description"
-					required
-					minLength="2"
-					maxLength="200"
-				/>
-				<span className="popup__error" id="description-error"></span>
-			</PopupWithForm>
+				<PopupWithForm
+					name="edit-popup"
+					title="Edit Profile"
+					inputName="Name"
+					inputDescription="About me"
+					onClose={handleClosePopup}
+					isOpen={isEditProfilePopupOpen}>
+					<input
+						name="name"
+						type="text"
+						placeholder="name"
+						className="popup__input popup__input_type_name"
+						id="name"
+						required
+						minLength="2"
+						maxLength="40"
+					/>
+					<span className="popup__error" id="name-error"></span>
+					<input
+						name="about"
+						type="text"
+						placeholder="Description"
+						className="popup__input popup__input_type_description"
+						id="description"
+						required
+						minLength="2"
+						maxLength="200"
+					/>
+					<span className="popup__error" id="description-error"></span>
+				</PopupWithForm>
 
-			<PopupWithForm
-				name="add-photo"
-				title="Add New Place"
-				inputName="title"
-				inputDescription="URL"
-				onClose={handleClosePopup}
-				isOpen={isAddPlacePopupOpen}>
-				<input
-					name="name"
-					type="text"
-					placeholder="Title"
-					className="popup__input popup__input_type_name"
-					id="name"
-					required
-					minLength="2"
-					maxLength="40"
-				/>
-				<span className="popup__error" id="name-error"></span>
-				<input
-					name="about"
-					type="url"
-					placeholder="Place"
-					className="popup__input popup__input_type_description"
-					id="description"
-					required
-					minLength="2"
-					maxLength="200"
-				/>
-				<span className="popup__error" id="description-error"></span>
-			</PopupWithForm>
-			<PopupWithForm
-				name="edit-popupPicture"
-				title="Change Profile Picture"
-				onClose={handleClosePopup}
-				isOpen={isEditAvatarPopupOpen}>
-				<input
-					name="avatar"
-					type="url"
-					placeholder="Link"
-					className="popup__input popup__input_type_name"
-					id="avatar"
-					required
-					minLength="6"
-				/>
-				<span className="popup__error" id="avatar-error"></span>
-			</PopupWithForm>
-			<ImagePopup card={selectedCard} onClose={handleClosePopup} />
-
+				<PopupWithForm
+					name="add-photo"
+					title="Add New Place"
+					inputName="title"
+					inputDescription="URL"
+					onClose={handleClosePopup}
+					isOpen={isAddPlacePopupOpen}>
+					<input
+						name="name"
+						type="text"
+						placeholder="Title"
+						className="popup__input popup__input_type_name"
+						id="name"
+						required
+						minLength="2"
+						maxLength="40"
+					/>
+					<span className="popup__error" id="name-error"></span>
+					<input
+						name="about"
+						type="url"
+						placeholder="Place"
+						className="popup__input popup__input_type_description"
+						id="description"
+						required
+						minLength="2"
+						maxLength="200"
+					/>
+					<span className="popup__error" id="description-error"></span>
+				</PopupWithForm>
+				<PopupWithForm
+					name="edit-popupPicture"
+					title="Change Profile Picture"
+					onClose={handleClosePopup}
+					isOpen={isEditAvatarPopupOpen}>
+					<input
+						name="avatar"
+						type="url"
+						placeholder="Link"
+						className="popup__input popup__input_type_name"
+						id="avatar"
+						required
+						minLength="6"
+					/>
+					<span className="popup__error" id="avatar-error"></span>
+				</PopupWithForm>
+				<ImagePopup card={selectedCard} onClose={handleClosePopup} />
+			</currentUserContext.Provider>
 			<div className="popup" id="delete-popup">
 				<div className="popup__content popup__content_type_delete">
 					<button className="popup__close" type="button"></button>
