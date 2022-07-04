@@ -8,48 +8,11 @@ function Main({
 	onEditProfileClick,
 	onAddPlaceClick,
 	onCardClick,
+	handleCardDelete,
+	handleCardLike,
+	cards,
 }) {
-	const [cards, setCards] = React.useState([]);
 	const currentuserData = React.useContext(currentUserContext);
-
-	function handleCardDelete(card) {
-		api
-			.deleteCard(card._id)
-			.then(() => {
-				setCards(cards.filter((c) => c._id !== card._id));
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}
-
-	function handleCardLike(card) {
-		const isLiked = card.likes.some((user) => user._id === currentuserData._id);
-
-		api
-			.handleLikePhoto(card._id, isLiked)
-			.then((newCard) => {
-				setCards((state) =>
-					state.map((currentCard) =>
-						currentCard._id === card._id ? newCard : currentCard
-					)
-				);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}
-
-	React.useEffect(() => {
-		api
-			.getInitialCards()
-			.then((cardData) => {
-				setCards(cardData);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
 
 	return (
 		<main>

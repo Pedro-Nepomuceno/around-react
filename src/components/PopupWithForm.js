@@ -5,6 +5,8 @@ function PopupWithForm({
 	onClose,
 	buttonText = "save",
 	children,
+	onSubmit,
+	disabledButton,
 }) {
 	return (
 		<div
@@ -16,9 +18,18 @@ function PopupWithForm({
 					onClick={onClose}
 					type="button"></button>
 				<h3 className="popup__title">{title}</h3>
-				<form id="profile-form" className="popup__form" name={name} noValidate>
+				<form
+					onSubmit={onSubmit}
+					id="profile-form"
+					className="popup__form"
+					name={name}
+					noValidate>
 					{children}
-					<button type="submit" className="popup__submit" disabled>
+					<button
+						type="submit"
+						className={`popup__submit ${
+							disabledButton ? "" : "popup__submit_disabled"
+						} `}>
 						{buttonText}
 					</button>
 				</form>
