@@ -8,8 +8,8 @@ import React from "react";
 import api from "../utils/api";
 import { currentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "../components/EditProfilePopup";
-import { EditAvatarPopup } from "../components/EditAvatarPopup ";
-import { AddPlacePopup } from "./AddPlacePopup ";
+import { EditAvatarPopup } from "./EditAvatarPopup";
+import { AddPlacePopup } from "./AddPlacePopup";
 
 function App() {
 	const currentuserData = React.useContext(currentUserContext);
