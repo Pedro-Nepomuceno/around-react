@@ -16,6 +16,9 @@ export function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
 		setAvatarValid(e.target.validity.valid);
 		setErrorMessage(e.target.validationMessage);
 	}
+	React.useEffect(() => {
+		dataLink.current.value = "";
+	}, [isOpen]);
 
 	return (
 		<PopupWithForm

@@ -2,7 +2,6 @@ import "../App.css";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
-import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
 import React from "react";
 import api from "../utils/api";
@@ -12,7 +11,6 @@ import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
 
 function App() {
-	const currentuserData = React.useContext(currentUserContext);
 	const [cards, setCards] = React.useState([]);
 	const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = React.useState(false);
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -73,6 +71,7 @@ function App() {
 				console.log(err);
 			});
 	}
+
 	function handleCardDelete(card) {
 		api
 			.deleteCard(card._id)

@@ -43,55 +43,51 @@ export function EditProfilePopup({ isOpen, onClose, onSubmit, onUpdateUser }) {
 		}));
 	}
 	return (
-		<>
-			<PopupWithForm
-				name="edit-popup"
-				title="Edit Profile"
-				inputName="Name"
-				inputDescription="About me"
-				onClose={onClose}
-				isOpen={isOpen}
-				onSubmit={handleSubmit}
-				disabledButton={isDescriptionValid && isNameValid}>
-				<input
-					name="name"
-					type="text"
-					placeholder="name"
-					className="popup__input popup__input_type_name"
-					id="name"
-					required
-					minLength="2"
-					maxLength="40"
-					value={name}
-					onChange={handleNameChange}
-				/>
-				<span
-					className={`popup__error ${
-						isNameValid ? "" : " popup__error_active"
-					}`}
-					id="name-error">
-					{errorMessage.name}
-				</span>
-				<input
-					name="about"
-					type="text"
-					placeholder="Description"
-					className="popup__input popup__input_type_description"
-					id="description"
-					required
-					minLength="2"
-					maxLength="200"
-					value={description}
-					onChange={handleDescriptionChange}
-				/>
-				<span
-					className={`popup__error ${
-						isDescriptionValid ? "" : "popup__error_active"
-					}`}
-					id="description-error">
-					{errorMessage.description}
-				</span>
-			</PopupWithForm>
-		</>
+		<PopupWithForm
+			name="edit-popup"
+			title="Edit Profile"
+			inputName="Name"
+			inputDescription="About me"
+			onClose={onClose}
+			isOpen={isOpen}
+			onSubmit={handleSubmit}
+			disabledButton={isDescriptionValid && isNameValid}>
+			<input
+				name="name"
+				type="text"
+				placeholder="name"
+				className="popup__input popup__input_type_name"
+				id="name"
+				required
+				minLength="2"
+				maxLength="40"
+				value={name || ""}
+				onChange={handleNameChange}
+			/>
+			<span
+				className={`popup__error ${isNameValid ? "" : " popup__error_active"}`}
+				id="name-error">
+				{errorMessage.name}
+			</span>
+			<input
+				name="about"
+				type="text"
+				placeholder="Description"
+				className="popup__input popup__input_type_description"
+				id="description"
+				required
+				minLength="2"
+				maxLength="200"
+				value={description || ""}
+				onChange={handleDescriptionChange}
+			/>
+			<span
+				className={`popup__error ${
+					isDescriptionValid ? "" : "popup__error_active"
+				}`}
+				id="description-error">
+				{errorMessage.description}
+			</span>
+		</PopupWithForm>
 	);
 }

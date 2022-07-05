@@ -1,5 +1,4 @@
 import React from "react";
-import api from "../utils/api.js";
 import Card from "./Card.js";
 import { currentUserContext } from "../contexts/CurrentUserContext.js";
 
@@ -22,14 +21,11 @@ function Main({
 						<button
 							type="button"
 							onClick={onEditAvatarClick}
-							className="profile__change-photo"></button>
+							className="profile__change-photo"
+						/>
 					</div>
 					{currentuserData.avatar && (
-						<img
-							className="profile__avatar-pic"
-							src={currentuserData.avatar}
-							alt="profile picture"
-						/>
+						<img className="profile__avatar-pic" src={currentuserData.avatar} />
 					)}
 				</div>
 				<div className="profile__info">
@@ -40,14 +36,16 @@ function Main({
 						onClick={onEditProfileClick}
 						aria-label="Edit"
 						type="button"
-						className="profile__edit"></button>
+						className="profile__edit"
+					/>
 				</div>
 
 				<button
 					onClick={onAddPlaceClick}
 					aria-label="Add"
 					type="button"
-					className="profile__plus"></button>
+					className="profile__plus"
+				/>
 			</section>
 			<section className="elements">
 				{cards.map((card) => (

@@ -2,8 +2,8 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export function AddPlacePopup({ isOpen, onClose, onSubmit, onAddPlaceSubmit }) {
-	const [name, setName] = React.useState();
-	const [link, setLink] = React.useState();
+	const [name, setName] = React.useState("");
+	const [link, setLink] = React.useState("");
 	const [isTitleValid, setIsTitleValid] = React.useState(false);
 	const [isLinkValid, setIsLinkValid] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState({
@@ -31,6 +31,11 @@ export function AddPlacePopup({ isOpen, onClose, onSubmit, onAddPlaceSubmit }) {
 
 		onAddPlaceSubmit({ name, link });
 	}
+	React.useEffect(() => {
+		setName("");
+		setLink("");
+	}, [isOpen]);
+
 	return (
 		<PopupWithForm
 			name="add-photo"
@@ -51,7 +56,7 @@ export function AddPlacePopup({ isOpen, onClose, onSubmit, onAddPlaceSubmit }) {
 				required
 				minLength="2"
 				maxLength="40"
-				value={name}
+				value={name || ""}
 				onChange={handleTitleSubmit}
 			/>
 			<span
@@ -68,7 +73,7 @@ export function AddPlacePopup({ isOpen, onClose, onSubmit, onAddPlaceSubmit }) {
 				required
 				minLength="2"
 				maxLength="200"
-				value={link}
+				value={link || ""}
 				onChange={handleLinkSubmit}
 			/>
 			<span
