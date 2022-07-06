@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card.js";
-import { currentUserContext } from "../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main({
 	onEditAvatarClick,
@@ -11,7 +11,7 @@ function Main({
 	handleCardLike,
 	cards,
 }) {
-	const currentuserData = React.useContext(currentUserContext);
+	const currentuserData = React.useContext(CurrentUserContext);
 
 	return (
 		<main>

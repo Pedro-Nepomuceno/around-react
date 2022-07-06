@@ -1,11 +1,10 @@
-import "../App.css";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import ImagePopup from "./ImagePopup.js";
 import React from "react";
 import api from "../utils/api";
-import { currentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "../components/EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
@@ -76,7 +75,9 @@ function App() {
 		api
 			.deleteCard(card._id)
 			.then(() => {
-				setCards(cards.filter((c) => c._id !== card._id));
+				setCards((state) =>
+					state.filter((currentCard) => currentCard._id !== card._id)
+				);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -124,7 +125,7 @@ function App() {
 
 	return (
 		<div className="page">
-			<currentUserContext.Provider value={currentUser}>
+			<CurrentUserContext.Provider value={currentUser}>
 				<Header />
 				<Main
 					onEditAvatarClick={handleEditAvatarClick}
@@ -153,7 +154,7 @@ function App() {
 				/>
 
 				<ImagePopup card={selectedCard} onClose={handleClosePopup} />
-			</currentUserContext.Provider>
+			</CurrentUserContext.Provider>
 			<div className="popup" id="delete-popup">
 				<div className="popup__content popup__content_type_delete">
 					<button className="popup__close" type="button"></button>
